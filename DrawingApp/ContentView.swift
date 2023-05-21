@@ -7,15 +7,29 @@
 
 import SwiftUI
 
+struct Line {
+    var points = [CGPoint]()
+    var color: Color = .red
+    var lineWidth: Double = 1.0
+}
+
 struct ContentView: View {
+    @State private var currentLine = Line()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        GeometryReader { geometry in
+            VStack {
+                Canvas { context, size in
+                    
+                }
+                .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .local)
+                    .onChanged({ value in
+                        
+                    })
+                )
+            }
+            .frame(width: geometry.size.width, height: geometry.size.height)
         }
-        .padding()
     }
 }
 
