@@ -15,15 +15,25 @@ struct Line {
 
 struct ContentView: View {
     @State private var currentLine = Line()
+    @State private var lines: [Line] = []
     
     var body: some View {
         GeometryReader { geometry in
             VStack {
                 Canvas { context, size in
-                    
+                    for line in lines {
+                        var path = Path()
+                        path.addLines(line.points)
+                    }
                 }
                 .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .local)
                     .onChanged({ value in
+                        // creating an array of all touch points
+                        let newPoint = value.location
+                        currentLine.points.append(newPoint)
+                    })
+                    
+                    .onEnded({ value in
                         
                     })
                 )
