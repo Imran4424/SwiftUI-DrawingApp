@@ -24,6 +24,7 @@ struct ContentView: View {
                     for line in lines {
                         var path = Path()
                         path.addLines(line.points)
+                        context.stroke(path, with: .color(line.color), lineWidth: line.lineWidth)
                     }
                 }
                 .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .local)
@@ -33,8 +34,9 @@ struct ContentView: View {
                         currentLine.points.append(newPoint)
                     })
                     
-                    .onEnded({ value in
-                        
+                    .onEnded({ _ in
+                        self.lines.append(currentLine)
+                        self.currentLine = Line()
                     })
                 )
             }
