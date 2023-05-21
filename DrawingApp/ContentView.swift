@@ -16,6 +16,7 @@ struct Line {
 struct ContentView: View {
     @State private var currentLine = Line()
     @State private var lines: [Line] = []
+    @State private var thickness: Double = 1.0
     
     var body: some View {
         GeometryReader { geometry in
@@ -33,14 +34,31 @@ struct ContentView: View {
                         let newPoint = value.location
                         currentLine.points.append(newPoint)
                     })
-                    
                     .onEnded({ _ in
                         self.lines.append(currentLine)
-                        self.currentLine = Line()
+                        self.currentLine = Line(points: [], color: currentLine.color, lineWidth: thickness)
                     })
                 )
+                
+                HStack {
+                    Slider(value: $thickness, in: 1...20) {
+                        Text("Thickness")
+                    }
+                    .frame(maxWidth: 200)
+                    .onChange(of: thickness) { newThickness in
+                        currentLine.lineWidth = newThickness
+                    }
+                    
+                    Spacer()
+                    
+                    ColorPickerView(selectedColor: $currentLine.color)
+                        .onChange(of: currentLine.color) { newColor in
+                            currentLine.color = newColor
+                        }
+                }
             }
             .frame(width: geometry.size.width, height: geometry.size.height)
+            .padding()
         }
     }
 }
