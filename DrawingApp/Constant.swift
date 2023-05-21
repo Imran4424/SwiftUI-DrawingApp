@@ -1,5 +1,5 @@
 //
-//  Constants.swift
+//  Constant.swift
 //  DrawingApp
 //
 //  Created by Shah Md Imran Hossain on 21/5/23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Constants {
+struct Constant {
     struct Icon {
         static let plusCircle = "plus.circle"
         static let line3HorizontalCircleFill = "line.3.horizontal.circle.fill"
