@@ -33,9 +33,11 @@ struct ContentView: View {
                         // creating an array of all touch points
                         let newPoint = value.location
                         currentLine.points.append(newPoint)
+                        self.lines.append(currentLine)
                     })
                     .onEnded({ _ in
-                        self.lines.append(currentLine)
+                        // no need of this line
+//                        self.lines.append(currentLine)
                         self.currentLine = Line(points: [], color: currentLine.color, lineWidth: thickness)
                     })
                 )
@@ -57,8 +59,8 @@ struct ContentView: View {
                         }
                 }
             }
-            .frame(width: geometry.size.width, height: geometry.size.height)
             .padding()
+            .frame(width: geometry.size.width, height: geometry.size.height)
         }
     }
 }
